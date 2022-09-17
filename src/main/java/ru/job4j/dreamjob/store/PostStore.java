@@ -26,4 +26,12 @@ public class PostStore {
         post.setId(newId);
         posts.putIfAbsent(newId, post);
     }
+
+    public void update(Post post) {
+        posts.replace(post.getId(), post);
+    }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
 }
