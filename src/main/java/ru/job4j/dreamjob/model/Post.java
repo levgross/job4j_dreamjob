@@ -7,9 +7,9 @@ public class Post {
     private int id;
     private String name;
     private String description;
-    private LocalDate created;
+    private String created;
 
-    public Post(int id, String name, String description, LocalDate created) {
+    public Post(int id, String name, String description, String created) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,11 +40,11 @@ public class Post {
         this.description = description;
     }
 
-    public LocalDate getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
