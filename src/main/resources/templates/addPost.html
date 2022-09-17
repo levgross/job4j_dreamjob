@@ -20,16 +20,17 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Dream Job, <small th:text="${user}"></small></a>
+        <a class="navbar-brand" href="#">Dream Job<small th:text="${user}"></small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
+                <a class="nav-item nav-link" href="#">Главная</a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
                 <a class="nav-item nav-link active" th:href="@{/formAddPost}">Добавить вакансию</a>
                 <a class="nav-item nav-link" th:href="@{/cadidates}">Кандидаты</a>
+				<a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
             </div>
         </div>
     </nav>
@@ -40,14 +41,13 @@
             </div>
             <div class="card-body">
                 <form th:action="@{/createPost}" method="POST">
-				    <input type="hidden" name="id" value="0"/>
-					<input type="hidden" name="created" value="0"/>
+				<input type="hidden" name="id" value="0"/>
                     <div class="form-group">
                         <label for="name">Название вакансии</label>
                         <input type="text" class="form-control" name="name"/>
                     </div>
 					<div class="form-group">
-                        <label for="name">Описание вакансии</label>
+                        <label for="description">Описание вакансии</label>
                         <input type="text" class="form-control" name="description"/>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
-import java.time.LocalDate;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Controller
 public class PostControl {
@@ -21,16 +22,16 @@ public class PostControl {
     }
 
     @GetMapping("/formAddPost")
-    public String addPost(Model model) {
+    public String formAddPost(Model model) {
         model.addAttribute("post", new Post(
-                0, "Заполните имя", "Заполните описание", LocalDate.now().toString()
+                0, "Заполните имя", "Заполните описание", LocalDateTime.now()
         ));
         return "addPost";
     }
 
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
-        post.setCreated(LocalDate.now().toString());
+        post.setCreated(LocalDateTime.now());
         store.add(post);
         return "redirect:/posts";
     }

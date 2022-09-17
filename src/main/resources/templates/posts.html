@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
-                    <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
+                    <a class="nav-item nav-link active" th:href="@{/posts}">Вакансии</a>
 					<a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
                     <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
 					<a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
@@ -49,7 +49,7 @@
                 <td th:text="${post.id}" />
                 <td th:text="${post.name}" />
 			    <td th:text="${post.description}" />
-			    <td th:text="${post.created}" />
+			    <td th:text="${#temporals.format(post.created, 'dd-MM-yyyy')}" />
             </tr>
             </tbody>
         </table>
