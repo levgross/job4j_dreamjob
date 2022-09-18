@@ -13,7 +13,11 @@ import java.time.LocalDateTime;
 
 @Controller
 public class PostControl {
-    private final PostService postService = new PostService();
+    private final PostService postService;
+
+    public PostControl(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping("/posts")
     public String posts(Model model) {
