@@ -10,6 +10,10 @@ public class Post implements Serializable {
     private String description;
     private LocalDateTime created;
     private boolean visible;
+    private City city;
+
+    public Post() {
+    }
 
     public Post(int id, String name, String description, LocalDateTime created) {
         this.id = id;
