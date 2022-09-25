@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
 
-import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletRequest;
 
 @ThreadSafe
 @Controller
@@ -39,7 +40,8 @@ public class PostControl {
     }
 
     @PostMapping("/createPost")
-    public String createPost(@ModelAttribute Post post) {
+    public String createPost(HttpServletRequest req, @ModelAttribute Post post) {
+        post.setCity(cityService.findById(Integer.parseInt(req.getParameter("city.id"))));
         postService.add(post);
         return "redirect:/posts";
     }
@@ -47,11 +49,13 @@ public class PostControl {
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
         model.addAttribute("post", postService.findById(id));
+        model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post) {
+    public String updatePost(HttpServletRequest req, @ModelAttribute Post post) {
+        post.setCity(cityService.findById(Integer.parseInt(req.getParameter("city.id"))));
         postService.update(post);
         return "redirect:/posts";
     }
