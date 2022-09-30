@@ -40,8 +40,8 @@ public class PostControl {
     }
 
     @PostMapping("/createPost")
-    public String createPost(HttpServletRequest req, @ModelAttribute Post post) {
-        post.setCity(cityService.findById(Integer.parseInt(req.getParameter("city.id"))));
+    public String createPost(@ModelAttribute Post post) {
+        post.setCity(cityService.findById(post.getCity().getId()));
         postService.add(post);
         return "redirect:/posts";
     }
@@ -54,8 +54,8 @@ public class PostControl {
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(HttpServletRequest req, @ModelAttribute Post post) {
-        post.setCity(cityService.findById(Integer.parseInt(req.getParameter("city.id"))));
+    public String updatePost(@ModelAttribute Post post) {
+        post.setCity(cityService.findById(post.getCity().getId()));
         postService.update(post);
         return "redirect:/posts";
     }
