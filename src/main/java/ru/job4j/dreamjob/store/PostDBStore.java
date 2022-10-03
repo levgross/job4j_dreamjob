@@ -2,6 +2,7 @@ package ru.job4j.dreamjob.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 
@@ -94,13 +95,12 @@ public class PostDBStore {
     }
 
     private Post createPost(ResultSet rs) throws SQLException {
-        CityService cityService = new CityService();
         Post post = new Post(
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("description"),
                 rs.getTimestamp("created").toLocalDateTime());
-        post.setCity(cityService.findById(rs.getInt("city_id")));
+        post.setCity(new City(rs.getInt("city_id"), ""));
         post.setVisible(rs.getBoolean("visible"));
         return post;
     }
