@@ -4,7 +4,7 @@ import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.store.CandidateStore;
+import ru.job4j.dreamjob.store.CandidateDBStore;
 
 import java.util.Collection;
 
@@ -12,25 +12,25 @@ import java.util.Collection;
 @Service
 public class CandidateService {
     @GuardedBy("this")
-    private final CandidateStore candidateStore;
+    private final CandidateDBStore store;
 
-    public CandidateService(CandidateStore candidateStore) {
-        this.candidateStore = candidateStore;
+    public CandidateService(CandidateDBStore store) {
+        this.store = store;
     }
 
     public void add(Candidate candidate) {
-        candidateStore.add(candidate);
+        store.add(candidate);
     }
 
     public void update(Candidate candidate) {
-        candidateStore.update(candidate);
+        store.update(candidate);
     }
 
     public Candidate findById(int id) {
-        return candidateStore.findById(id);
+        return store.findById(id);
     }
 
     public Collection<Candidate> findAll() {
-        return candidateStore.findAll();
+        return store.findAll();
     }
 }
