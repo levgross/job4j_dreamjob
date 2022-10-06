@@ -1,4 +1,6 @@
 *.iml
 target
 .idea
-.bak
+*.bak
+testdb.mv.db
+testdb.trace.db
