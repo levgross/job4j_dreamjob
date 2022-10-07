@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @ThreadSafe
@@ -30,18 +32,27 @@ public class UserControl {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user) {
+    public String login(@ModelAttribute User user, HttpServletRequest req) {
         Optional<User> userDb = userService.findUserByEmailAndPwd(
                 user.getEmail(), user.getPassword()
         );
         if (userDb.isEmpty()) {
             return "redirect:/loginPage?fail=true";
         }
+        HttpSession session = req.getSession();
+        session.setAttribute("user", userDb.get());
         return "redirect:/index";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
+    }
+
     @GetMapping("/formAddUser")
-    public String formAddUser(Model model) {
+    public String formAddUser(Model model, HttpSession session) {
+        model.addAttribute("user", check(session));
         return "addUser";
     }
 
@@ -64,5 +75,14 @@ public class UserControl {
     public String fail(Model model) {
         model.addAttribute("message", "Пользователь с такой почтой уже существует");
         return "fail";
+    }
+
+    private User check(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setEmail("Гость");
+        }
+        return user;
     }
 }
