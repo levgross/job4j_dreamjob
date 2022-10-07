@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
@@ -32,8 +33,19 @@ public class UserControl {
         Optional<User> regUser = userService.add(user);
         if (regUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
-            return "fail";
+            return "redirect:/fail";
         }
+        return "redirect:/success";
+    }
+
+    @GetMapping("/success")
+    public String success(Model model) {
         return "success";
+    }
+
+    @GetMapping("/fail")
+    public String fail(Model model) {
+        model.addAttribute("message", "Пользователь с такой почтой уже существует");
+        return "fail";
     }
 }

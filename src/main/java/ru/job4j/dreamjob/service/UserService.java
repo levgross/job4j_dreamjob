@@ -21,4 +21,8 @@ public class UserService {
     public Optional<User> add(User user) {
         return store.add(user);
     }
+
+    public Optional<User> findUserByEmailAndPwd(String email, String pwd) {
+        return store.findUserByEmailAndPwd(email, pwd);
+    }
 }
