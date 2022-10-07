@@ -1,1 +1,6 @@
-ALTER TABLE post ADD COLUMN visible BOOLEAN NOT NULL DEFAULT false;
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  email varchar(255),
+  password TEXT,
+  CONSTRAINT email_unique UNIQUE (email)
+);
