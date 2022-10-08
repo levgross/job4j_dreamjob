@@ -61,20 +61,21 @@ public class UserControl {
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = userService.add(user);
         if (regUser.isEmpty()) {
-            model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "redirect:/fail";
         }
         return "redirect:/success";
     }
 
     @GetMapping("/success")
-    public String success(Model model) {
+    public String success(Model model, HttpSession session) {
+        model.addAttribute("user", new Utility().check(session));
         return "success";
     }
 
     @GetMapping("/fail")
-    public String fail(Model model) {
+    public String fail(Model model, HttpSession session) {
         model.addAttribute("message", "Пользователь с такой почтой уже существует");
+        model.addAttribute("user", new Utility().check(session));
         return "fail";
     }
 }
