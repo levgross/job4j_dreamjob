@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.dreamjob.Utility;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.CandidateService;
 
 import javax.servlet.http.HttpSession;
@@ -32,7 +32,7 @@ public class CandidateControl {
     @GetMapping("/candidates")
     public String candidates(Model model, HttpSession session) {
         model.addAttribute("candidates", candidateService.findAll());
-        model.addAttribute("user", check(session));
+        model.addAttribute("user", new Utility().check(session));
         return "candidates";
     }
 
@@ -41,7 +41,7 @@ public class CandidateControl {
         model.addAttribute("candidate", new Candidate(
                 0, "Заполните имя", "Заполните описание", LocalDateTime.now()
         ));
-        model.addAttribute("user", check(session));
+        model.addAttribute("user", new Utility().check(session));
         return "addCandidate";
     }
 
@@ -57,7 +57,7 @@ public class CandidateControl {
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
         model.addAttribute("candidate", candidateService.findById(id));
-        model.addAttribute("user", check(session));
+        model.addAttribute("user", new Utility().check(session));
         return "updateCandidate";
     }
 
@@ -77,14 +77,5 @@ public class CandidateControl {
                 .contentLength(candidate.getPhoto().length)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new ByteArrayResource(candidate.getPhoto()));
-    }
-
-    private User check(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setEmail("Гость");
-        }
-        return user;
     }
 }

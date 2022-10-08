@@ -2,5 +2,5 @@
 target
 .idea
 *.bak
-testdb.mv.db
-testdb.trace.db
+*.mv.db
+*.trace.db
