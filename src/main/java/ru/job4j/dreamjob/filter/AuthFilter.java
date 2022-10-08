@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class AuthFilter implements Filter {
@@ -17,13 +18,15 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String uri = req.getRequestURI();
-        if (uri.endsWith("loginPage")
-                || uri.endsWith("login")
-                || uri.endsWith("index")
-                || uri.endsWith("formAddUser")
-                || uri.endsWith("registration")
-                || uri.endsWith("success")
-                || uri.endsWith("fail")) {
+        Set<String> pages = Set.of(
+                "loginPage",
+                "login",
+                "index",
+                "formAddUser",
+                "registration",
+                "success",
+                "fail");
+        if (anyMatch(uri, pages)) {
             chain.doFilter(req, resp);
             return;
         }
@@ -32,5 +35,10 @@ public class AuthFilter implements Filter {
             return;
         }
         chain.doFilter(req, resp);
+    }
+
+    private boolean anyMatch(String uri, Set<String> set) {
+        return set.stream()
+                .anyMatch(uri::endsWith);
     }
 }
