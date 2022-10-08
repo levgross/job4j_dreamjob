@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.job4j.dreamjob.Utility;
+import ru.job4j.dreamjob.util.Utility;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
@@ -53,7 +53,7 @@ public class UserControl {
 
     @GetMapping("/formAddUser")
     public String formAddUser(Model model, HttpSession session) {
-        model.addAttribute("user", new Utility().check(session));
+        model.addAttribute("user", Utility.check(session));
         return "addUser";
     }
 
@@ -68,14 +68,14 @@ public class UserControl {
 
     @GetMapping("/success")
     public String success(Model model, HttpSession session) {
-        model.addAttribute("user", new Utility().check(session));
+        model.addAttribute("user", Utility.check(session));
         return "success";
     }
 
     @GetMapping("/fail")
     public String fail(Model model, HttpSession session) {
         model.addAttribute("message", "Пользователь с такой почтой уже существует");
-        model.addAttribute("user", new Utility().check(session));
+        model.addAttribute("user", Utility.check(session));
         return "fail";
     }
 }

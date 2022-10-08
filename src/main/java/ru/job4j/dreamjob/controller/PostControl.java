@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j.dreamjob.Utility;
+import ru.job4j.dreamjob.util.Utility;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
@@ -30,14 +30,14 @@ public class PostControl {
     @GetMapping("/posts")
     public String posts(Model model, HttpSession session) {
         model.addAttribute("posts", postService.findAll());
-        model.addAttribute("user", new Utility().check(session));
+        model.addAttribute("user", Utility.check(session));
         return "posts";
     }
 
     @GetMapping("/formAddPost")
     public String formAddPost(Model model, HttpSession session) {
         model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("user", new Utility().check(session));
+        model.addAttribute("user", Utility.check(session));
         return "addPost";
     }
 
@@ -52,7 +52,7 @@ public class PostControl {
     public String formUpdatePost(Model model, @PathVariable("postId") int id, HttpSession session) {
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("user", new Utility().check(session));
+        model.addAttribute("user", Utility.check(session));
         return "updatePost";
     }
 
