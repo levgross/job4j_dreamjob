@@ -21,7 +21,6 @@ public class AuthFilter implements Filter {
         Set<String> pages = Set.of(
                 "loginPage",
                 "login",
-                "index",
                 "formAddUser",
                 "registration",
                 "success",

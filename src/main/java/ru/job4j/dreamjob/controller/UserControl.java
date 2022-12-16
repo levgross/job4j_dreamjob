@@ -42,7 +42,7 @@ public class UserControl {
         }
         HttpSession session = req.getSession();
         session.setAttribute("user", userDb.get());
-        return "redirect:/index";
+        return "redirect:/posts";
     }
 
     @GetMapping("/logout")
@@ -58,7 +58,7 @@ public class UserControl {
     }
 
     @PostMapping("/registration")
-    public String registration(Model model, @ModelAttribute User user) {
+    public String registration(@ModelAttribute User user) {
         Optional<User> regUser = userService.add(user);
         if (regUser.isEmpty()) {
             return "redirect:/fail";
