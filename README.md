@@ -48,3 +48,9 @@ mvn spring-boot:run
 ```
 
 Перейти по ссылке http://localhost:8080/posts
+
+## Контакты
+При возникновении вопросов, замечаний или предложений, прошу писать мне по указанным ниже контактам:
+
+[![alt-text](https://img.shields.io/badge/-telegram-grey?style=flat&logo=telegram&logoColor=white)](https://t.me/levgross)&nbsp;&nbsp;
+[![alt-text](https://img.shields.io/badge/@%20email-005FED?style=flat&logo=mail&logoColor=white)](mailto:levgross@gmail.com)&nbsp;&nbsp;
